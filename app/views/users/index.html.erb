@@ -1,0 +1,12 @@
+
+
+<div class="container">
+	<div><h1>All Users</h1></div>
+<% @users.each_with_index do |u,i| %>
+	<div class="row">
+		<%= i+1 %>. 
+		<%= link_to "#{u.username}", user_path(u.id) %> - 
+		<%= u.email %>
+	</div>
+<% end %>
+</div>

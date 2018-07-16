@@ -1,0 +1,12 @@
+<div class="container">
+	<h1>Edit user</h1>
+
+	<div class="row">
+		<div class="col-md-6">
+			<%= form_for @user, method: :patch, controller: "users#update" do |f| %>
+				<%= render partial: '/users/form', object: f %>
+				<%= f.submit "Edit User", class: "btn btn-primary" %>
+			<% end %>
+		</div>
+	</div>
+</div>
