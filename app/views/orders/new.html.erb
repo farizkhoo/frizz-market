@@ -1,0 +1,8 @@
+<div class="container">
+	<h1>New Order</h1>
+
+	<%= form_for [current_user, @order] do |f| %>
+		<%= render partial: '/orders/form', object: f %>
+		<%= f.submit "New Order", class: "btn btn-primary" %>
+	<% end %>
+</div>

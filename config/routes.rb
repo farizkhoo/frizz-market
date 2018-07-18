@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   root "welcome#index"
 
   resources :users do
-  	resources :orders
+  	resources :orders, controller: "orders", only: [:new, :create]
   end
+
+  resources :orders, controller: "orders", only: [:index]
 
   get "/login" => "sessions#new", as: "login"
   post "/login" => "sessions#create"

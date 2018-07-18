@@ -1,0 +1,35 @@
+
+<div class="container">
+	<h1>Orders</h1>
+
+	<%= form_tag(orders_path, method: :get) do %>
+	  <%= text_field_tag :term %>
+	  <%= submit_tag 'Search', name: nil %>
+  	<% end %>
+</div>
+
+<div class="container">
+	<%
+	
+</div>
+
+<div class="container">
+	<h2>Buy Orders</h2>
+  	<% @orders.each do |order| %>
+  	<div>
+  	  <%= "#{order.user.username} is buying #{order.buy_amount} #{order.buy_currency} for #{order.sell_amount} #{order.sell_currency}" %> 
+  	  <%= link_to "SELL" %>
+  	</div>
+  	<% end %>
+</div>
+
+<div class="container">
+	<h2>Sell Orders</h2>
+  	<% @orders.each do |order| %>
+  	<div>
+  	  <%= "#{order.user.username} is selling #{order.sell_amount} #{order.sell_currency} for #{order.buy_amount} #{order.buy_currency}" %> 
+  	  <%= link_to "BUY" %>
+  	</div>
+  	<% end %>
+</div>
+
