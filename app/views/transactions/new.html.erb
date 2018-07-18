@@ -1,0 +1,24 @@
+<h1>New transaction</h1>
+
+<div>Order ID: <%= @order.id %></div>
+<div>
+<%= @order.user.username.capitalize %> receives 
+<%= @order.buy_amount %>
+<%= @order.buy_currency %>
+</div>
+<div>
+You receive 
+<%= @order.sell_amount %>
+<%= @order.sell_currency %>
+</div>
+
+<%= form_for @transaction do %>
+<input type="hidden" name="order_id" value="<%= @order.id %>">
+<input type="hidden" name="transaction[buyer_id]" value="<%= @order.user.id %>">
+<input type="hidden" name="transaction[seller_id]" value="<%= current_user.id %>">
+<input type="hidden" name="transaction[buy_currency]" value="<%= @order.buy_currency %>">
+<input type="hidden" name="transaction[buy_amount]" value="<%= @order.buy_amount %>">
+<input type="hidden" name="transaction[sell_currency]" value="<%= @order.sell_currency %>">
+<input type="hidden" name="transaction[sell_amount]" value="<%= @order.sell_amount %>">
+<%= submit_tag "Confirm" %>
+	<% end %>

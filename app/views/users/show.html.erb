@@ -16,19 +16,8 @@
 <div class="container text-light bg-dark">
 <h2>Welcome <%= current_user.username.capitalize %></h2>
 </div>
-<div class="container text-light bg-dark mb-2">
-	
-	<h3>Your Balance</h3>
-		<% @balances.each do |b| %>
-		<div class="row px-3">
-			<div class="col-6 text-left"><%= b.currency %>: <%= b.amount %>
-			</div>	
-			<div class="col-6 text-right">
-				<%= link_to "Add Currency", root_path %>
-			</div>
-		</div>
-		<% end %>
-</div>
+
+<%= render partial: "balance" %>
 
 <div class="container text-light bg-dark">
 	<h2><%= link_to "New Order", new_user_order_path(user_id: @user.id) %></h2>

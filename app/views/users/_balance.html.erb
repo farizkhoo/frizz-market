@@ -1,0 +1,13 @@
+<div class="container text-light bg-dark py-2 my-2">
+	
+	<h3>Your Balance</h3>
+		<% @balances.each do |b| %>
+		<div class="row px-3">
+			<div class="col-6 text-left"><%= b.currency %>: <%= b.amount %>
+			</div>	
+			<div class="col-6 text-right">
+				<%= link_to "Add Currency", braintree_new_path(currency: b.currency) %>
+			</div>
+		</div>
+		<% end %>
+</div>
