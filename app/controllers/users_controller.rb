@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	before_action :require_owner, only: [:edit, :update]
 
 	def index
 		@users = User.all
@@ -15,6 +16,7 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
+			starting_balance(@user)
 			redirect_to login_path, :flash => { :success => "User successfully created" }
 		else
 			redirect_to new_user_path, :flash => { :error => "Failed to create users" }
@@ -46,10 +48,17 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
+		@balances = @user.balances
 	end
 
 	private
 	def user_params
 		params.require(:user).permit(:username, :email, :password, :password_confirmation)
+	end
+
+	def require_owner
+		unless current_user == User.find(params[:id]) || current_user.admin?
+			redirect_to users_path, :flash => { :error => "You do not have permission to view this page" }	
+		end
 	end
 end
