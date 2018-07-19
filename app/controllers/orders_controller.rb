@@ -19,15 +19,21 @@ class OrdersController < ApplicationController
 	end
 
 	def index
-		@user = current_user
-		@balances = @user.balances
+		if current_user
+			@user = current_user
+			@balances = @user.balances
+		end
 
 		if params[:term] != "" && params[:term] != nil
 			@orders = []
 			Order.where(completed: false).where.not(user_id: current_user.id).search(params[:term],"buy").each { |o| @orders << o }
 			Order.where(completed: false).where.not(user_id: current_user.id).search(params[:term],"sell").each { |o| @orders << o }
 		else
-			@orders = Order.all.where(completed: false).where.not(user_id: current_user.id)
+			if current_user
+				@orders = Order.all.where(completed: false).where.not(user_id: current_user.id)
+			else
+				@orders = Order.all.where(completed: false)
+			end
 		end
 	end
 

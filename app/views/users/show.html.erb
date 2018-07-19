@@ -33,8 +33,26 @@
 	<h2>Buy orders</h2>
 </div>
 
+<div class="container">
+	<% @orders.each do |order| %>
+	<div>
+		<%= "#{order.user.username} is buying #{order.buy_amount} #{order.buy_currency} for #{order.sell_amount} #{order.sell_currency}" %>
+		<%= link_to "SELL #{order.buy_currency}", { :controller => "transactions", :action => "new", :id => order.id } %>
+	</div>
+	<% end %>
+</div>
+
 <div class="container text-light bg-dark">
 	<h2>Sell orders</h2>
 </div>
 
+<div class="container">
+	<% @orders.each do |order| %>
+	<div>
+		<%= "#{order.user.username} is selling #{order.sell_amount} #{order.sell_currency} for #{order.buy_amount} #{order.buy_currency}" %> 
+		<%= link_to "BUY #{order.sell_currency}", { :controller => "transactions", :action => "new", :id => order.id } %>
+  	</div>
+  	<% end %>
+</div>
+	
 </div>

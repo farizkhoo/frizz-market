@@ -1,6 +1,12 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
-
-<%= link_to "Orders", orders_path %><br>
-<%= link_to "Sell Orders" %><br>
-<%= link_to "View users", users_path %><br>
+<div class="container p-4 bg-dark">
+	<div class="jumbotron">
+		<em style="font-size: 80px;">Welcome to FrizzMarket</em>
+		<div style="font-size: 50px; margin: 30px;">Making currency exchange easy</div>
+	</div>
+	<% if current_user == nil %>
+	<div class="text-center">
+		<a style="font-size: 30px; text-decoration: underline; color: white;" class="mx-2" href="/signup">Sign Up</a>
+		<a style="font-size: 30px; text-decoration: underline; color: white;" class="mx-2" href="/login">Log In</a>
+	</div>
+	<% end %>
+</div>

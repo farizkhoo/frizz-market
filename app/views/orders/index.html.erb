@@ -8,7 +8,9 @@
   	<% end %>
 </div>
 
+<% if current_user != nil %>
 <%= render partial: "/users/balance" %>
+<% end %>
 
 <div class="container">
 	<h2>Buy Orders</h2>
@@ -25,7 +27,7 @@
   	<% @orders.each do |order| %>
   	<div>
   	  <%= "#{order.user.username} is selling #{order.sell_amount} #{order.sell_currency} for #{order.buy_amount} #{order.buy_currency}" %> 
-  	  <%= link_to "BUY #{order.sell_currency}" %>
+  	  <%= link_to "BUY #{order.sell_currency}", { :controller => "transactions", :action => "new", :id => order.id } %>
   	</div>
   	<% end %>
 </div>

@@ -51,6 +51,7 @@ class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
 		@balances = @user.balances
+		@orders = @user.orders
 	end
 
 	def verify
