@@ -2,11 +2,63 @@
 
 <div class="container">
 	<div><h1>All Users</h1></div>
-<% @users.each_with_index do |u,i| %>
-	<div class="row">
-		<%= i+1 %>. 
-		<%= link_to "#{u.username}", user_path(u.id) %> - 
-		<%= u.email %>
-	</div>
-<% end %>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Username</th>
+				<th scope="col">Email</th>
+				<th scope="col">Verified</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @users.each_with_index do |u,i| %>
+			<tr>
+				<th scope="row"><%= "#{i+1}." %></th>
+				<td><%= link_to "#{u.username.capitalize}", user_path(u.id) %></td>
+				<td><%= u.email %></td>
+				<% if current_user != nil %>
+					<% if current_user.admin? %>
+					<td class="verified">
+					<% else %>
+					<td>
+					<% end %>
+				<% end %>
+					<% if u.verified? %>
+					<input type="hidden" value="<%=u.id%>">
+					<span class="fa fa-check" aria-hidden="true"></span>
+					<% else %>
+					<input type="hidden" value="<%=u.id%>">
+					<span class="fa fa-times" aria-hidden="true"></span>
+					<% end %>		
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
 </div>
+
+<script type="text/javascript">
+	$(".verified").on("click", function(){
+		var iSelector = $(this).find("span")
+		var hiddenUser = $(this).find("input")
+		
+		if (iSelector.hasClass('fa-times')) {
+			iSelector.removeClass('fa-times')
+			iSelector.addClass('fa-check')
+			$.ajax({
+				method: "POST",
+				url: "/verify_user",
+				data: { id: hiddenUser.val() }
+			});
+		} else {
+			iSelector.removeClass('fa-check')
+			iSelector.addClass('fa-times')
+			$.ajax({
+				method: "POST",
+				url: "/unverify_user",
+				data: { id: hiddenUser.val() }
+			});
+		}
+	});
+</script>

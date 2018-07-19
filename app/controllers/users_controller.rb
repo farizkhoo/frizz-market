@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
+	skip_before_action :verify_authenticity_token, only: [:verify, :unverify]
+
 	before_action :require_owner, only: [:edit, :update]
 
 	def index
-		@users = User.all
+		@users = User.all.order(:id)
 	end
 
 	def new
@@ -49,6 +51,18 @@ class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
 		@balances = @user.balances
+	end
+
+	def verify
+		@user = User.find(params[:id])
+		@user.verified = true
+		@user.save
+	end
+
+	def unverify
+		@user = User.find(params[:id])
+		@user.verified = false
+		@user.save
 	end
 
 	private

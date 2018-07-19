@@ -17,4 +17,7 @@ Rails.application.routes.draw do
   get "/signup" => "users#new", as: "signup"
   get 'braintree/new'
   post 'braintree/checkout' => "braintree#checkout", as: "braintree_checkout"
+  post 'verify_user' => "users#verify", as: "verify_user"
+  post 'unverify_user' => "users#unverify", as: "unverify_user"
+
 end
